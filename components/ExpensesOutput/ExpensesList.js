@@ -1,11 +1,7 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet } from 'react-native';
 
 const ExpensesList = () => {
-  return (
-    <View>
-      <Text>ExpensesList</Text>
-    </View>
-  );
+  return <FlatList />;
 };
 
 export default ExpensesList;
