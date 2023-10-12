@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import ManageExpense from './screens/ManageExpense';
-import ExpenseOverview from './components/navigation/ExpenseOverview';
+import ExpenseOverview from './components/Navigation/ExpenseOverview';
 
 const Stack = createNativeStackNavigator();
 
