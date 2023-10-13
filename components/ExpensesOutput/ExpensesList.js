@@ -1,9 +1,15 @@
-import { FlatList, StyleSheet } from 'react-native';
+import { FlatList } from 'react-native';
 
-const ExpensesList = () => {
-  return <FlatList />;
+import ExpenseItem from './ExpenseItem';
+
+const ExpensesList = ({ expenses }) => {
+  return (
+    <FlatList
+      data={expenses}
+      keyExtractor={({ id }) => id}
+      renderItem={ExpenseItem}
+    />
+  );
 };
 
 export default ExpensesList;
-
-const styles = StyleSheet.create({});
