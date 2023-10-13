@@ -35,6 +35,36 @@ const DUMMY_EXPENSES = [
     description: 'Another Book',
     amount: 18.59,
     date: new Date('2022-02-18')
+  },
+  {
+    id: 'e6',
+    description: 'A pair of shoes',
+    amount: 59.99,
+    date: new Date('2023-10-12')
+  },
+  {
+    id: 'e7',
+    description: 'A pair of pants',
+    amount: 89.29,
+    date: new Date('2022-01-15')
+  },
+  {
+    id: 'e8',
+    description: 'Bananas',
+    amount: 5.99,
+    date: new Date('2021-12-01')
+  },
+  {
+    id: 'e9',
+    description: 'Book',
+    amount: 14.99,
+    date: new Date('2022-02-19')
+  },
+  {
+    id: 'e10',
+    description: 'Another Book',
+    amount: 18.59,
+    date: new Date('2022-02-18')
   }
 ];
 
@@ -53,6 +83,8 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: GlobalStyles.colors.primary700,
     flex: 1,
-    padding: 24
+    paddingBottom: 0,
+    paddingHorizontal: 24,
+    paddingTop: 24
   }
 });
