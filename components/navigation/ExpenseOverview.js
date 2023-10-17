@@ -6,18 +6,27 @@ import AllExpenses from '../../screens/AllExpenses';
 import RecentExpenses from '../../screens/RecentExpenses';
 
 import { GlobalStyles } from '../../constants/styles';
+import IconButton from '../UI/IconButton';
 
 const BottomTabs = createBottomTabNavigator();
 
 const ExpenseOverview = () => {
   return (
     <BottomTabs.Navigator
-      screenOptions={{
+      screenOptions={({ navigation }) => ({
+        headerRight: ({ tintColor }) => (
+          <IconButton
+            color={tintColor}
+            icon='add'
+            onPress={() => navigation.navigate('ManageExpense')}
+            size={24}
+          />
+        ),
         headerStyle: { backgroundColor: GlobalStyles.colors.primary500 },
         headerTintColor: 'white',
         tabBarActiveTintColor: GlobalStyles.colors.accent500,
         tabBarStyle: { backgroundColor: GlobalStyles.colors.primary500 }
-      }}
+      })}
     >
       <BottomTabs.Screen
         component={RecentExpenses}
