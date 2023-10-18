@@ -6,18 +6,21 @@ import IconButton from '../components/UI/IconButton';
 import { GlobalStyles } from '../constants/styles';
 import Button from '../components/UI/Button';
 
-const ManageExpense = ({ navigation: { setOptions }, route: { params } }) => {
+const ManageExpense = ({
+  navigation: { goBack, setOptions },
+  route: { params }
+}) => {
   const expenseId = params?.id;
 
   useLayoutEffect(() => {
     setOptions({ title: expenseId ? 'Edit Expense' : 'Add Expense' });
   }, [expenseId, setOptions]);
 
-  const deleteExpenseHandler = () => {};
+  const deleteExpenseHandler = () => goBack();
 
-  const cancelHandler = () => {};
+  const cancelHandler = () => goBack();
 
-  const confirmHandler = () => {};
+  const confirmHandler = () => goBack();
 
   return (
     <View style={styles.container}>
