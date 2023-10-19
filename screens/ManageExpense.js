@@ -1,26 +1,41 @@
-import { useLayoutEffect } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { useContext, useLayoutEffect } from 'react';
+import { StyleSheet, View } from 'react-native';
 
-import IconButton from '../components/UI/IconButton';
-
-import { GlobalStyles } from '../constants/styles';
 import Button from '../components/UI/Button';
+import IconButton from '../components/UI/IconButton';
+import { ExpensesContext } from '../store/expensesContext';
+import { GlobalStyles } from '../constants/styles';
 
 const ManageExpense = ({
   navigation: { goBack, setOptions },
   route: { params }
 }) => {
+  const { addExpense, deleteExpense, updateExpense } =
+    useContext(ExpensesContext);
+
   const expenseId = params?.id;
 
   useLayoutEffect(() => {
     setOptions({ title: expenseId ? 'Edit Expense' : 'Add Expense' });
   }, [expenseId, setOptions]);
 
-  const deleteExpenseHandler = () => goBack();
+  const deleteExpenseHandler = () => {
+    deleteExpense(expenseId);
+    goBack();
+  };
 
   const cancelHandler = () => goBack();
 
-  const confirmHandler = () => goBack();
+  const confirmHandler = () => {
+    expenseId
+      ? updateExpense(expenseId, {
+          amount: 29.99,
+          date: new Date(),
+          description: 'update test'
+        })
+      : addExpense({ amount: 19.99, date: new Date(), description: 'test' });
+    goBack();
+  };
 
   return (
     <View style={styles.container}>
