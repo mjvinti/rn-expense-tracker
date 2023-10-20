@@ -1,9 +1,29 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+
+import Input from './Input';
 
 const ExpenseForm = () => {
+  const amountChangeHandler = () => {};
+
   return (
     <View>
-      <Text>ExpenseForm</Text>
+      <Input
+        label='Amount'
+        textInputConfig={{
+          keyboardType: 'decimal-pad',
+          onChangeText: amountChangeHandler
+        }}
+      />
+      <Input
+        label='Date'
+        textInputConfig={{
+          keyboardType: 'default',
+          maxLength: 10,
+          onChangeText: () => {},
+          placeholder: 'YYYY-MM-DD'
+        }}
+      />
+      <Input label='Description' textInputConfig={{}} />
     </View>
   );
 };
