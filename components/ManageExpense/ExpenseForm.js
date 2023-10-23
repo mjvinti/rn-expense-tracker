@@ -1,4 +1,4 @@
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 
 import Input from './Input';
 
@@ -34,5 +34,3 @@ const ExpenseForm = () => {
 };
 
 export default ExpenseForm;
-
-const styles = StyleSheet.create({});
