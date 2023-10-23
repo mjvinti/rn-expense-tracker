@@ -17,7 +17,15 @@ const ExpenseForm = ({ onCanel, onSubmit, submitBtnLabel }) => {
       [inputId]: enteredValue
     }));
 
-  const submitHandler = () => {};
+  const submitHandler = () => {
+    const data = {
+      amount: +inputValues.amount,
+      date: new Date(inputValues.date),
+      description: inputValues.description
+    };
+
+    onSubmit(data);
+  };
 
   return (
     <View style={styles.form}>

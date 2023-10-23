@@ -27,14 +27,8 @@ const ManageExpense = ({
 
   const cancelHandler = () => goBack();
 
-  const confirmHandler = () => {
-    expenseId
-      ? updateExpense(expenseId, {
-          amount: 29.99,
-          date: new Date(),
-          description: 'update test'
-        })
-      : addExpense({ amount: 19.99, date: new Date(), description: 'test' });
+  const confirmHandler = (data) => {
+    expenseId ? updateExpense(expenseId, data) : addExpense(data);
     goBack();
   };
 
@@ -42,6 +36,7 @@ const ManageExpense = ({
     <View style={styles.container}>
       <ExpenseForm
         onCanel={cancelHandler}
+        onSubmit={confirmHandler}
         submitBtnLabel={expenseId ? 'Update' : 'Add'}
       />
       {expenseId && (
