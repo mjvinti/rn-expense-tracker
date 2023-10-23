@@ -30,7 +30,11 @@ const ManageExpense = ({
   const cancelHandler = () => goBack();
 
   const confirmHandler = (data) => {
-    expenseId ? updateExpense(expenseId, data) : addExpense(data);
+    if (expenseId) {
+      updateExpense(expenseId, data);
+    } else {
+      addExpense(data);
+    }
     goBack();
   };
 
