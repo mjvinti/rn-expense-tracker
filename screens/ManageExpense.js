@@ -40,15 +40,10 @@ const ManageExpense = ({
 
   return (
     <View style={styles.container}>
-      <ExpenseForm />
-      <View style={styles.buttons}>
-        <Button mode='flat' onPress={cancelHandler} style={styles.button}>
-          Cancel
-        </Button>
-        <Button onPress={confirmHandler} style={styles.button}>
-          {expenseId ? 'Update' : 'Add'}
-        </Button>
-      </View>
+      <ExpenseForm
+        onCanel={cancelHandler}
+        submitBtnLabel={expenseId ? 'Update' : 'Add'}
+      />
       {expenseId && (
         <View style={styles.deleteContainer}>
           <IconButton
@@ -66,12 +61,6 @@ const ManageExpense = ({
 export default ManageExpense;
 
 const styles = StyleSheet.create({
-  button: { marginHorizontal: 8, minWidth: 120 },
-  buttons: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'center'
-  },
   container: {
     backgroundColor: GlobalStyles.colors.primary800,
     flex: 1,

@@ -1,9 +1,23 @@
+import { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
+import Button from '../UI/Button';
 import Input from './Input';
 
-const ExpenseForm = () => {
-  const amountChangeHandler = () => {};
+const ExpenseForm = ({ onCanel, onSubmit, submitBtnLabel }) => {
+  const [inputValues, setInputValues] = useState({
+    amount: '',
+    date: '',
+    description: ''
+  });
+
+  const inputChangeHandler = (inputId, enteredValue) =>
+    setInputValues((state) => ({
+      ...state,
+      [inputId]: enteredValue
+    }));
+
+  const submitHandler = () => {};
 
   return (
     <View style={styles.form}>
@@ -14,7 +28,8 @@ const ExpenseForm = () => {
           style={styles.rowInput}
           textInputConfig={{
             keyboardType: 'decimal-pad',
-            onChangeText: amountChangeHandler
+            onChangeText: inputChangeHandler.bind(this, 'amount'),
+            value: inputValues.amount
           }}
         />
         <Input
@@ -23,7 +38,8 @@ const ExpenseForm = () => {
           textInputConfig={{
             keyboardType: 'default',
             maxLength: 10,
-            onChangeText: () => {},
+            onChangeText: inputChangeHandler.bind(this, 'date'),
+            value: inputValues.date,
             placeholder: 'YYYY-MM-DD'
           }}
         />
@@ -31,9 +47,19 @@ const ExpenseForm = () => {
       <Input
         label='Description'
         textInputConfig={{
-          multiline: true
+          multiline: true,
+          onChangeText: inputChangeHandler.bind(this, 'description'),
+          value: inputValues.description
         }}
       />
+      <View style={styles.buttons}>
+        <Button mode='flat' onPress={onCanel} style={styles.button}>
+          Cancel
+        </Button>
+        <Button onPress={submitHandler} style={styles.button}>
+          {submitBtnLabel}
+        </Button>
+      </View>
     </View>
   );
 };
@@ -41,6 +67,12 @@ const ExpenseForm = () => {
 export default ExpenseForm;
 
 const styles = StyleSheet.create({
+  button: { marginHorizontal: 8, minWidth: 120 },
+  buttons: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center'
+  },
   form: { marginTop: 40 },
   inputsRow: {
     flexDirection: 'row',
