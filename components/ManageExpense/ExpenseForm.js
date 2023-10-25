@@ -5,6 +5,7 @@ import Button from '../UI/Button';
 import Input from './Input';
 
 import { getFormattedDate } from '../../util/date';
+import { GlobalStyles } from '../../constants/styles';
 
 const ExpenseForm = ({ defaultValues, onCanel, onSubmit, submitBtnLabel }) => {
   const [inputs, setInputs] = useState({
@@ -65,6 +66,7 @@ const ExpenseForm = ({ defaultValues, onCanel, onSubmit, submitBtnLabel }) => {
       <Text style={styles.title}>Your Expense</Text>
       <View style={styles.inputsRow}>
         <Input
+          invalid={!inputs.amount.isValid}
           label='Amount'
           style={styles.rowInput}
           textInputConfig={{
@@ -74,6 +76,7 @@ const ExpenseForm = ({ defaultValues, onCanel, onSubmit, submitBtnLabel }) => {
           }}
         />
         <Input
+          invalid={!inputs.date.isValid}
           label='Date'
           style={styles.rowInput}
           textInputConfig={{
@@ -86,6 +89,7 @@ const ExpenseForm = ({ defaultValues, onCanel, onSubmit, submitBtnLabel }) => {
         />
       </View>
       <Input
+        invalid={!inputs.description.isValid}
         label='Description'
         textInputConfig={{
           multiline: true,
@@ -94,7 +98,9 @@ const ExpenseForm = ({ defaultValues, onCanel, onSubmit, submitBtnLabel }) => {
         }}
       />
       {formIsInvalid && (
-        <Text>Invalid input values - please check your entered data!</Text>
+        <Text style={styles.errorText}>
+          Invalid input values - please check your entered data!
+        </Text>
       )}
       <View style={styles.buttons}>
         <Button mode='flat' onPress={onCanel} style={styles.button}>
@@ -116,6 +122,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'center'
+  },
+  errorText: {
+    color: GlobalStyles.colors.error500,
+    margin: 8,
+    textAlign: 'center'
   },
   form: { marginTop: 40 },
   inputsRow: {
