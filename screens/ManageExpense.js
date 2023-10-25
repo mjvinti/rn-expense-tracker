@@ -6,6 +6,7 @@ import ExpenseForm from '../components/ManageExpense/ExpenseForm';
 import IconButton from '../components/UI/IconButton';
 import { ExpensesContext } from '../store/expensesContext';
 import { GlobalStyles } from '../constants/styles';
+import { storeExpense } from '../util/http';
 
 const ManageExpense = ({
   navigation: { goBack, setOptions },
@@ -33,7 +34,8 @@ const ManageExpense = ({
     if (expenseId) {
       updateExpense(expenseId, data);
     } else {
-      addExpense(data);
+      storeExpense(data);
+      // addExpense(data);
     }
     goBack();
   };
