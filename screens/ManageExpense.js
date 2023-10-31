@@ -35,7 +35,7 @@ const ManageExpense = ({
       updateExpense(expenseId, data);
     } else {
       storeExpense(data);
-      // addExpense(data);
+      addExpense(data);
     }
     goBack();
   };

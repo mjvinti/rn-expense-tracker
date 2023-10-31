@@ -6,11 +6,12 @@ import { getDateMinusDays } from '../util/date';
 import { fetchExpenses } from '../util/http';
 
 const RecentExpenses = () => {
-  const { expenses } = useContext(ExpensesContext);
+  const { expenses, setExpenses } = useContext(ExpensesContext);
 
   useEffect(() => {
     const getExpenses = async () => {
       const expenses = await fetchExpenses();
+      setExpenses(expenses);
     };
     getExpenses();
   }, []);
