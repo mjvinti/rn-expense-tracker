@@ -30,12 +30,12 @@ const ManageExpense = ({
 
   const cancelHandler = () => goBack();
 
-  const confirmHandler = (data) => {
+  const confirmHandler = async (data) => {
     if (expenseId) {
       updateExpense(expenseId, data);
     } else {
-      storeExpense(data);
-      addExpense(data);
+      const id = await storeExpense(data);
+      addExpense({ ...data, id });
     }
     goBack();
   };
