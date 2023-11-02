@@ -1,17 +1,23 @@
-import { useContext, useLayoutEffect } from 'react';
+import { useContext, useLayoutEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import Button from '../components/UI/Button';
 import ExpenseForm from '../components/ManageExpense/ExpenseForm';
 import IconButton from '../components/UI/IconButton';
+import LoadingOverlay from '../components/UI/LoadingOverlay';
+
 import { ExpensesContext } from '../store/expensesContext';
 import { GlobalStyles } from '../constants/styles';
-import { storeExpense } from '../util/http';
+import {
+  storeExpense,
+  updateExpense as updateExpenseReq,
+  deleteExpense as deleteExpenseReq
+} from '../util/http';
 
 const ManageExpense = ({
   navigation: { goBack, setOptions },
   route: { params }
 }) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { addExpense, deleteExpense, expenses, updateExpense } =
     useContext(ExpensesContext);
 
@@ -23,22 +29,30 @@ const ManageExpense = ({
     setOptions({ title: expenseId ? 'Edit Expense' : 'Add Expense' });
   }, [expenseId, setOptions]);
 
-  const deleteExpenseHandler = () => {
+  const deleteExpenseHandler = async () => {
+    setIsSubmitting(true);
     deleteExpense(expenseId);
+    await deleteExpenseReq(expenseId);
     goBack();
   };
 
   const cancelHandler = () => goBack();
 
   const confirmHandler = async (data) => {
+    setIsSubmitting(true);
     if (expenseId) {
       updateExpense(expenseId, data);
+      await updateExpenseReq(expenseId, data);
     } else {
       const id = await storeExpense(data);
       addExpense({ ...data, id });
     }
     goBack();
   };
+
+  if (isSubmitting) {
+    return <LoadingOverlay />;
+  }
 
   return (
     <View style={styles.container}>
