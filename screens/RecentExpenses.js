@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 
+import ErrorOverlay from '../components/UI/ErrorOverlay';
 import ExpensesOutput from '../components/ExpensesOutput/ExpensesOutput';
 import LoadingOverlay from '../components/UI/LoadingOverlay';
 
@@ -9,17 +10,29 @@ import { fetchExpenses } from '../util/http';
 
 const RecentExpenses = () => {
   const [isFetching, setIsFetching] = useState(true);
+  const [error, setError] = useState();
+
   const { expenses, setExpenses } = useContext(ExpensesContext);
 
   useEffect(() => {
     const getExpenses = async () => {
       setIsFetching(true);
-      const expenses = await fetchExpenses();
+
+      try {
+        const expenses = await fetchExpenses();
+        setExpenses(expenses);
+      } catch (err) {
+        setError('Could no fetch expenses!');
+      }
+
       setIsFetching(false);
-      setExpenses(expenses);
     };
     getExpenses();
   }, []);
+
+  if (error && !isFetching) {
+    return <ErrorOverlay message={error} />;
+  }
 
   const recentExpenses = expenses.filter((expense) => {
     const today = new Date();
